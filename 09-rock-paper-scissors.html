@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Rock Paper Scissors</title>
+		<style>
+			body {
+				background-color: rgb(25, 25, 25);
+				color: white;
+				font-family: Arial;
+			}
+
+			.result {
+				font-size: 25px;
+				font-weight: bold;
+				margin-top: 50px;
+			}
+
+			.title {
+				font-size: 30px;
+				font-weight: bold;
+			}
+
+			.reset_score_button, .auto_play_button {
+				padding: 10px 15px;
+				cursor: pointer;
+				border-radius: 10px;
+			}
+			.move-button {
+				background-color: transparent;
+				border: 3px solid white;
+				width: 120px;
+				height: 120px;
+				object-fit: contain;
+				border-radius: 60px;
+				cursor: pointer;
+			}
+			.move-button img {
+				width: 60%;
+				height: 60%;
+				object-fit: contain;
+			}
+
+			button:hover {
+				opacity: 0.9;
+				transform: scale(1.03);
+				transition: all 0.2s ease-in-out;
+			}
+
+			.output {
+				margin-top: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p class = "title"> Rock Paper Scissors</p>
+		<button id = "rock" class = "move-button"><img src = "rock-emoji.png"></button>
+		<button id = "paper" class = "move-button"><img src = "paper-emoji.png"></button>
+		<button id = "scissors" class = "move-button"><img src = "scissors-emoji.png"></button>
+
+		<p id = "state" class = "result"></p>
+		<p id = "report" ></p>
+
+		<p id = "output" class = "output">Wins: 0, Loses: 0, Ties: 0</p>
+		<button onclick = "reset_score()" class = "reset_score_button">Reset Score</button>
+		<button class = "auto_play_button" onclick = "auto_play()">Auto play</button>
+
+		<script>
+			let computer, auto_play_state = false;
+
+			const score = {
+				win: 0,
+				loss: 0,
+				tie: 0
+			};
+
+			document.getElementById("rock").onclick = () => {
+				run_game("rock");
+			}
+
+			document.getElementById("paper").onclick = () => {
+				run_game("paper");
+			}
+
+			document.getElementById("scissors").onclick = () => {
+				run_game("scissors");
+			}
+
+			function auto_play() {
+				if(auto_play_state === false)
+				{
+					document.getElementsByClassName('auto_play_button')[0].innerHTML = 'Stop auto play';
+					auto_play_state = true;
+					intervalID = setInterval(() => {
+						random();
+						let playerMove = computer;
+						random();
+						run_game(playerMove);
+					}, 1000);
+				}
+				else
+				{
+					document.getElementsByClassName('auto_play_button')[0].innerHTML = 'Auto play';
+					auto_play_state = false;
+					clearInterval(intervalID);
+				}
+			}
+
+			function run_game(input) {
+				random();
+				compare(input);
+				change_output();
+			}
+
+			function reset_score() {
+				score.loss = 0;
+				score.tie = 0;
+				score.win = 0;
+				change_output();
+				document.getElementById("state").innerHTML = "";
+				document.getElementById("report").innerHTML = "";
+
+				document.getElementsByClassName('auto_play_button')[0].innerHTML = 'Auto play';
+				auto_play_state = false;
+				clearInterval(intervalID);
+			}
+
+			function moveToImage(move) {
+				if (move === "rock")
+					return '<img src="rock-emoji.png" width="40">';
+				else if (move === "paper")
+					return '<img src="paper-emoji.png" width="40">';
+				else
+					return '<img src="scissors-emoji.png" width="40">';
+			}
+
+			function change_output() {
+				document.getElementById("output").innerHTML = `Wins: ${score.win}, Loses: ${score.loss}, Ties: ${score.tie}`
+			}
+
+			function compare(input) {
+				let message = `You picked ${input}. Computer picked ${computer}. `;
+				let result;
+				
+				if(input === "rock")
+				{
+					if(computer === "paper")
+					{
+						//alert(message + "You lose.");
+						document.getElementById("state").innerHTML = "You lose.";
+						score.loss += 1;
+					}
+					else if(computer === "rock")
+					{
+						//alert(message + "Tie");
+						document.getElementById("state").innerHTML = "Tie.";
+						score.tie += 1;
+					}
+					else
+					{
+						//alert(message + "You win!");
+						document.getElementById("state").innerHTML = "You win!";
+						score.win += 1;
+					}
+				}
+				else if(input === "paper")
+				{
+					if(computer === "paper")
+					{
+						//alert(message + "Tie");
+						document.getElementById("state").innerHTML = "Tie.";
+						score.tie += 1;
+					}
+					else if(computer === "rock")
+					{
+						//alert(message + "You win!");
+						document.getElementById("state").innerHTML = "You win!";
+						score.win += 1;
+					}
+					else
+					{
+						//alert(message + "You lose.");
+						document.getElementById("state").innerHTML = "You lose.";
+						score.loss += 1;
+					}
+				}
+				else
+				{
+					if(computer === "paper")
+					{
+						//alert(message + "You win!");
+						document.getElementById("state").innerHTML = "You win!";
+						score.win += 1;
+					}
+					else if(computer === "rock")
+					{
+						//alert(message + "You lose.");
+						document.getElementById("state").innerHTML = "You lose.";
+						score.loss += 1;
+					}
+					else
+					{
+						//alert(message + "Tie");
+						document.getElementById("state").innerHTML = "Tie.";
+						score.tie += 1;
+					}
+				}
+
+				document.getElementById("report").innerHTML = `You ${moveToImage(input)} vs. ${moveToImage(computer)} Computer`;
+			}
+
+			function random() {
+				let random = Math.floor(Math.random() * 3) + 1;
+				if(random === 1)
+					computer = "rock";
+				else if(random === 2)
+					computer = "paper";
+				else
+					computer = "scissors";
+			}
+		</script>
+	</body>
+</html>
