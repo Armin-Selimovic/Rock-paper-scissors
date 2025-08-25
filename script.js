@@ -83,11 +83,11 @@ function reset_score() {
 
 function moveToImage(move) {
 	if (move === "rock")
-		return '<img src="rock-emoji.png" width="40">';
+		return '<img src="./images/rock-emoji.png" width="40">';
 	else if (move === "paper")
-		return '<img src="paper-emoji.png" width="40">';
+		return '<img src="./images/paper-emoji.png" width="40">';
 	else
-		return '<img src="scissors-emoji.png" width="40">';
+		return '<img src="./images/scissors-emoji.png" width="40">';
 }
 
 function change_output() {
