@@ -7,7 +7,7 @@ It runs entirely in the browser and supports both manual play and an auto-play m
 * Score tracking: Wins, losses, and ties are updated live on screen
 * Auto Play: Automatically plays a move every second until stopped
 * Keyboard shortcuts:
-  * Q → Rock
+* Q → Rock
 	* W → Paper
 	* E → Scissors
 	* R → Reset score
