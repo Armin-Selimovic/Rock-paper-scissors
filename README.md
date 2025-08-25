@@ -1,8 +1,10 @@
-#### Rock Paper Scissors 🎮✊✋✌️
+# Rock Paper Scissors 🎮✊✋✌️
 A simple interactive Rock Paper Scissors game built with HTML, CSS, and JavaScript.
 It runs entirely in the browser and supports both manual play and an auto-play mode.
 
-#### 🚀 Features
+---
+
+## 🚀 Features
 * Classic gameplay: Play Rock, Paper, or Scissors against the computer
 * Score tracking: Wins, losses, and ties are updated live on screen
 * Auto Play: Automatically plays a move every second until stopped
